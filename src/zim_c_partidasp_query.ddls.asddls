@@ -21,7 +21,7 @@ define view ZIM_C_PARTIDASP_QUERY
 
 
   @EndUserText.label: 'ID do Time'
-  @AnalyticsDetails.query.display: #KEY_TEXT
+  @AnalyticsDetails.query.display: #TEXT
   @AnalyticsDetails.query.axis: #FREE
   @ObjectModel.text.element: ['NomeTime']
   @Consumption.valueHelp: '_Clube'
@@ -35,6 +35,8 @@ define view ZIM_C_PARTIDASP_QUERY
   @AnalyticsDetails.query.axis: #FREE
   Placar,
 
+  @EndUserText.label: 'Pontos'
+  @AnalyticsDetails.query.axis: #FREE
   Pontos,
 
   @ObjectModel.readOnly
