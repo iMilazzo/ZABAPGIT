@@ -37,7 +37,8 @@ CLASS zcl_upload_xls DEFINITION PUBLIC FINAL.
       fill_zim_elencos IMPORTING !i_table TYPE STANDARD TABLE,
       fill_zim_jogadores IMPORTING !i_table TYPE STANDARD TABLE,
       fill_zim_estadios IMPORTING !i_table TYPE STANDARD TABLE,
-      fill_zim_partidas IMPORTING !i_table TYPE STANDARD TABLE,
+      fill_zim_partidas_k IMPORTING !i_table TYPE STANDARD TABLE,
+      fill_zim_partidas_p IMPORTING !i_table TYPE STANDARD TABLE,
       fill_zim_gols IMPORTING !i_table TYPE STANDARD TABLE,
 
       create_guid RETURNING VALUE(r_guid) TYPE guid,
@@ -432,14 +433,14 @@ CLASS zcl_upload_xls IMPLEMENTATION.
   ENDMETHOD.
 
 **********************************************************************
-  METHOD fill_zim_partidas.
+  METHOD fill_zim_partidas_k.
 
     DATA:
-      wl_zim_partida TYPE zim_partidas.
+      wl_zim_partida_k TYPE zim_partidas_k.
 
-    MESSAGE s005(zim_futebol) WITH 'ZIM_PARTIDAS'.
+    MESSAGE s005(zim_futebol) WITH 'ZIM_PARTIDAS_K'.
 
-    DELETE FROM zim_partidas.
+    DELETE FROM zim_partidas_k.
     CLEAR sy-subrc.
 
     LOOP AT i_table ASSIGNING FIELD-SYMBOL(<fs_data>) FROM 2.
@@ -449,14 +450,14 @@ CLASS zcl_upload_xls IMPLEMENTATION.
         ASSIGN COMPONENT sy-index OF STRUCTURE <fs_data> TO FIELD-SYMBOL(<fs_field>).
         IF sy-subrc = 0 .
 
-          ASSIGN COMPONENT sy-index OF STRUCTURE wl_zim_partida TO FIELD-SYMBOL(<fs_zim_partida>).
+          ASSIGN COMPONENT sy-index OF STRUCTURE wl_zim_partida_k TO FIELD-SYMBOL(<fs_zim_partida_k>).
           IF sy-subrc = 0 .
 
-            IF sy-index = 7.
-              <fs_zim_partida> = convert_date( <fs_field> ).
+            IF sy-index = 3.
+              <fs_zim_partida_k> = convert_date( <fs_field> ).
             ELSE.
 
-              <fs_zim_partida> = <fs_field>.
+              <fs_zim_partida_k> = <fs_field>.
             ENDIF.
 
           ENDIF.
@@ -465,7 +466,42 @@ CLASS zcl_upload_xls IMPLEMENTATION.
 
       ENDWHILE .
 
-      MODIFY zim_partidas FROM wl_zim_partida.
+      MODIFY zim_partidas_k FROM wl_zim_partida_k.
+
+    ENDLOOP .
+
+  ENDMETHOD.
+
+**********************************************************************
+  METHOD fill_zim_partidas_p.
+
+    DATA:
+      wl_zim_partida_p TYPE zim_partidas_p.
+
+    MESSAGE s005(zim_futebol) WITH 'ZIM_PARTIDAS_P'.
+
+    DELETE FROM zim_partidas_p.
+    CLEAR sy-subrc.
+
+    LOOP AT i_table ASSIGNING FIELD-SYMBOL(<fs_data>) FROM 2.
+
+      WHILE sy-subrc = 0.
+
+        ASSIGN COMPONENT sy-index OF STRUCTURE <fs_data> TO FIELD-SYMBOL(<fs_field>).
+        IF sy-subrc = 0 .
+
+          ASSIGN COMPONENT sy-index OF STRUCTURE wl_zim_partida_p TO FIELD-SYMBOL(<fs_zim_partida_p>).
+          IF sy-subrc = 0 .
+
+            <fs_zim_partida_p> = <fs_field>.
+
+          ENDIF.
+
+        ENDIF.
+
+      ENDWHILE .
+
+      MODIFY zim_partidas_p FROM wl_zim_partida_p.
 
     ENDLOOP .
 

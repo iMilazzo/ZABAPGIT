@@ -4,6 +4,7 @@
 @Analytics.dataExtraction.enabled: true
 @EndUserText.label: 'Partidas, public view, VDM consum view'
 @VDM.viewType: #CONSUMPTION
+@OData.publish: true
 define view ZIM_C_PARTIDAS_QUERY
   as select from ZIM_I_PARTIDAS_CUBE as Partida
 {

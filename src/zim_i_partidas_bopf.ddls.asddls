@@ -2,16 +2,14 @@
 @AbapCatalog.compiler.compareFilter: true
 @AccessControl.authorizationCheck: #NOT_REQUIRED
 @EndUserText.label: 'Part., private view, VDM interface view'
+
 @VDM.viewType: #BASIC
 
-//@ObjectModel.modelCategory: #BUSINESS_OBJECT 
-//@ObjectModel.compositionRoot: true
-//@ObjectModel.transactionalProcessingEnabled: true
-
 @ObjectModel:{
+    representativeKey: ['id_rodada', 'id_partida'],
+    semanticKey: ['id_rodada', 'id_partida'],
     modelCategory: #BUSINESS_OBJECT,
-    representativeKey: ['id_rodada', 'id_estadio'],
-    semanticKey: ['id_rodada', 'id_estadio'],
+    compositionRoot: true,
     transactionalProcessingEnabled: true,
     writeActivePersistence: 'ZIM_PARTIDAS',
     createEnabled: true,
@@ -48,4 +46,5 @@ define view ZIM_I_PARTIDAS_BOPF as select from zim_partidas as Partida
     _estadio,
     _clube_A,
     _clube_B
+
 }

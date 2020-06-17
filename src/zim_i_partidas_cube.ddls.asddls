@@ -3,10 +3,18 @@
 @AbapCatalog.preserveKey: true
 @AccessControl.authorizationCheck: #NOT_REQUIRED
 @EndUserText.label: 'Partidas, public view, VDM cube view'
-@VDM.private: true
-@VDM.viewType: #BASIC
-@Analytics.dataCategory: #CUBE
-@Analytics.dataExtraction.enabled: true
+
+@VDM.viewType: #COMPOSITE
+@ObjectModel:{
+    representativeKey: ['id_rodada', 'id_partida'],
+    semanticKey: ['id_rodada', 'id_partida']
+}
+
+@Analytics: {
+    dataCategory: #CUBE,
+    dataExtraction.enabled: true
+}
+
 define view ZIM_I_PARTIDAS_CUBE
   as select from ZIM_I_PARTIDAS_VIEW as Partida
   //    association [0..1] to I_CalendarDate as _CalendarDate on _CalendarDate.CalendarDate = $projection.Data

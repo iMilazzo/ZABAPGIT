@@ -5,10 +5,13 @@
 @EndUserText.label: 'Clubes, private view, VDM interface view'
 
 @Analytics.dataCategory: #DIMENSION
-
 @VDM.viewType: #BASIC
+@ObjectModel:{
+    representativeKey: 'Clubes.id_clube',
+    semanticKey: 'Clubes.id_clube'
+}
 define view ZIM_I_CLUBES_VIEW
-  as select from zim_clubes
+  as select from zim_clubes as Clubes
 
   association [1..1] to zim_estadios      as _estadio on _estadio.id_estadio = $projection.ClubeID
   association [1..1] to zim_clubes_desc   as _desc    on _desc.id_clube = $projection.ClubeID
@@ -19,7 +22,7 @@ define view ZIM_I_CLUBES_VIEW
 
 {
   key id_clube as ClubeID,
-  key id_estadio as EstadioID,
+      id_estadio as EstadioID,
       nometime as NomeTime,
       nomecompleto as NomeCompleto,
       fundacao as Fundacao,

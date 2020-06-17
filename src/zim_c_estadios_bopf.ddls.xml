@@ -3,9 +3,9 @@
  <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
   <asx:values>
    <DDLS>
-    <DDLNAME>ZIM_C_PARTIDAS_QUERY</DDLNAME>
+    <DDLNAME>ZIM_C_ESTADIOS_BOPF</DDLNAME>
     <DDLANGUAGE>E</DDLANGUAGE>
-    <DDTEXT>Partidas, public view, VDM cube view</DDTEXT>
+    <DDTEXT>Estadios, public view, VDM consumption view</DDTEXT>
     <SOURCE_TYPE>V</SOURCE_TYPE>
    </DDLS>
   </asx:values>
