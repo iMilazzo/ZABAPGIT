@@ -45,7 +45,7 @@ CLASS zcl_upload_xls DEFINITION PUBLIC FINAL.
       get_id IMPORTING !i_nometime TYPE zim_nometime
              RETURNING VALUE(r_id) TYPE id,
       convert_date IMPORTING !i_date_string TYPE string
-                   RETURNING VALUE(r_date)  TYPE datum .
+                   RETURNING VALUE(r_date)  TYPE TZNTSTMPS .
 
 
 ENDCLASS.
@@ -621,7 +621,8 @@ CLASS zcl_upload_xls IMPLEMENTATION.
     ENDIF.
 
     IF sy-subrc = 0.
-      r_date = l_converted_date .
+      CONVERT DATE l_converted_date TIME sy-uzeit INTO TIME STAMP r_date TIME ZONE 'BRAZIL'.
+*      r_date = l_converted_date .
     ENDIF.
   ENDMETHOD.
 

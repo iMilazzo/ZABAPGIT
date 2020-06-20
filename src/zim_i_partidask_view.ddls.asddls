@@ -23,8 +23,6 @@ define view ZIM_I_PARTIDASK_VIEW
 {
 
   key Partida.id_partida,
-      @ObjectModel.text.association: '_Estadio'
-      @ObjectModel.foreignKey.association: '_Estadio'
       Partida.id_estadio as EstadioID,
       Partida.data       as Data,
       Partida.id_rodada  as RodadaID,
@@ -36,5 +34,7 @@ define view ZIM_I_PARTIDASK_VIEW
       Partida.moeda      as Moeda,
 
       _Estadio,
+      
+      @ObjectModel.association.type:  [#TO_COMPOSITION_CHILD  ]
       _PartidasItem
 }

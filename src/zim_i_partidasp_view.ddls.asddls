@@ -15,16 +15,27 @@
 }
 define view ZIM_I_PARTIDASP_VIEW as select from zim_partidas_p as PartidaItem
     association [1..1] to ZIM_I_CLUBES_VIEW as _Clube on _Clube.ClubeID = $projection.ClubeID
+    association [0..1] to ZIM_I_PARTIDASK_VIEW as _PartidaHeader on _PartidaHeader.id_partida = $projection.id_partida
 {
 
     key PartidaItem.id_partida,
     key PartidaItem.id_item,
-    @ObjectModel.text.association: '_Clube'
-    @ObjectModel.foreignKey.association: '_Clube'
+    @ObjectModel: {
+        text.element: ['NomeTime'],
+        text.association: '_Clube',
+        foreignKey.association: '_Clube'
+    }    
     PartidaItem.id_clube as ClubeID,
     PartidaItem.placar as Placar,
     PartidaItem.pontos as Pontos,
 
-    _Clube
+    @ObjectModel.readOnly
+    @Semantics.text: true
+    _Clube.NomeTime,
+
+
+    _Clube,
+    @ObjectModel.association.type:  [#TO_COMPOSITION_ROOT ] 
+    _PartidaHeader
     
 }
