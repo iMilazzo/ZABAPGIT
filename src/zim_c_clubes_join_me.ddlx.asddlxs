@@ -1,0 +1,90 @@
+@Metadata.layer: #CORE
+annotate view ZIM_C_CLUBES_CJOIN
+    with 
+{
+
+    @UI.facet: [
+         { 
+            label: 'Wiki',
+            id: 'historico',
+            purpose: #STANDARD,
+            type: #COLLECTION,
+            position: 10
+         },
+         { 
+            label: 'Informações Gerais',
+            id: 'GeneralInformation',
+            purpose: #STANDARD,
+            type: #COLLECTION,
+            position: 20
+         },
+         {
+           id:'historicoChild',
+           purpose: #STANDARD,
+           parentId: 'historico',
+           type: #IDENTIFICATION_REFERENCE,
+           position: 10,
+           targetQualifier: 'hist'
+         },
+         {
+           label: 'Group 1',
+           id:'grp1',
+           purpose: #STANDARD,
+           parentId: 'GeneralInformation',
+           type: #FIELDGROUP_REFERENCE,
+           position: 10,
+           targetQualifier: 'one'
+         },
+         {
+           label: 'Group 2',
+           id:'grp2',
+           purpose: #STANDARD,
+           parentId: 'GeneralInformation',
+           type: #FIELDGROUP_REFERENCE,
+           position: 20,
+           targetQualifier: 'two'
+         }
+    ]
+    
+    @UI: {
+        multiLineText: true,
+//        fieldGroup: [{ qualifier: 'hist', position: 10, importance: #LOW }],
+        identification:[ { position: 10, label: '', importance: #LOW } ]
+    }
+    descricao;
+    
+    @UI: {
+        fieldGroup: [{ qualifier: 'one', position: 10, importance: #HIGH }],
+        lineItem: [ { position: 20, label: 'ID do Clube', importance: #HIGH } ]
+//        identification:[ { valueQualifier: 'one', position: 10, label: 'ID do Clube' } ]
+    }
+    id_clube;
+
+    @UI: {
+        fieldGroup: [{ qualifier: 'one', position: 20, importance: #HIGH }],
+        lineItem: [ { position: 20, label: 'Nome do Time', importance: #HIGH } ],
+        selectionField: [ { position: 10 } ]
+    }
+    nome_time;
+
+
+    @UI: {
+        fieldGroup: [{ qualifier: 'two', position: 10, label: 'Nome Razão', importance: #HIGH }]
+//          identification:[ { position: 20, label: 'Nome Razão', importance: #MEDIUM } ]
+    }
+    nome_completo;
+
+    @UI: {
+        fieldGroup: [{ qualifier: 'two', position: 30, label: 'Fundado em', importance: #HIGH }],
+//          identification:[ { position: 60, label: 'Fundado em' }, importance: #MEDIUM ],
+        lineItem:  [{ position: 40 }]
+    }
+    fundacao;
+
+    @UI: {
+        fieldGroup: [{ qualifier: 'two', position: 40, label: 'Nome do Técnico', importance: #HIGH }]
+//          identification:[ { position: 70, label: 'Nome do Técnico' }, importance: #MEDIUM ]
+    }
+    nome_tecnico;
+    
+}

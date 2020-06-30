@@ -2,35 +2,48 @@
 @AbapCatalog.compiler.compareFilter: true
 @AbapCatalog.preserveKey: true
 @AccessControl.authorizationCheck: #NOT_REQUIRED
-@EndUserText.label: 'Estadios, private view, VDM interf view'
+@EndUserText.label: 'BOPF for ESTADIOS'
 
-@Analytics.dataCategory: #DIMENSION
-@Search.searchable: true
-@VDM.viewType: #BASIC
+@VDM.viewType: #TRANSACTIONAL
 @ObjectModel:{
-    dataCategory: #TEXT,
-    representativeKey: 'id_estadio',
-    semanticKey: 'id_estadio',
+
+    modelCategory: #BUSINESS_OBJECT,
+    compositionRoot: true,
     transactionalProcessingEnabled: true,
-    compositionRoot: true,    
+
     writeActivePersistence: 'ZIM_ESTADIOS',
+
     createEnabled: true,
-    deleteEnabled: true,
     updateEnabled: true,
-    usageType: {
-        serviceQuality: #B,
-        sizeCategory: #S,
-        dataClass: #MASTER  
-    }    
+    deleteEnabled: true,
+
+    representativeKey: ['id_estadio'],
+    semanticKey: ['id_estadio'],
+
+    dataCategory: #HIERARCHY
+
 }
-define view ZIM_I_ESTADIOS_BOPF as select from zim_estadios as Estadios 
+define view ZIM_I_ESTADIOS_BOPF
+  as select from ZIM_I_ESTADIOS_TOTAL as Estadio
+  association [0..*] to ZIM_I_CLUBES_BOPF as _Clube on _Clube.id_estadio = $projection.id_estadio
+  association [0..*] to ZIM_I_PARTIDASK_BOPF as _PartidasHdr on _PartidasHdr.id_estadio = $projection.id_estadio
+  
 {
-    //zim_estadios
-    key id_estadio,
-//    @Semantics.language: true
-    @Semantics.text: true
-    @Search.defaultSearchElement: true
-    @Search.fuzzinessThreshold: 0.8
-    nomeestadio,
-    capacidade
+
+      //Estadio
+  key id_estadio,
+      nome_estadio,
+      cidade,
+      uf,
+      capacidade,
+      geocode,
+
+      created_at,
+      created_by,
+      changed_at,
+      changed_by,
+
+      //      @ObjectModel.association.type: [ #TO_COMPOSITION_PARENT, #TO_COMPOSITION_ROOT ]
+      _Clube,
+      _PartidasHdr
 }

@@ -1,0 +1,1 @@
+jQuery.sap.declare("ClubeOP3.ClubeOP3.Component");sap.ui.getCore().loadLibrary("sap.ui.generic.app");jQuery.sap.require("sap.ui.generic.app.AppComponent");sap.ui.generic.app.AppComponent.extend("ClubeOP3.ClubeOP3.Component",{metadata:{manifest:"json"}}); 

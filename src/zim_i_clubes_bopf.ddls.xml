@@ -5,7 +5,7 @@
    <DDLS>
     <DDLNAME>ZIM_I_CLUBES_BOPF</DDLNAME>
     <DDLANGUAGE>E</DDLANGUAGE>
-    <DDTEXT>Clubes, public view, VDM interface view</DDTEXT>
+    <DDTEXT>BOPF for CLUBES</DDTEXT>
     <SOURCE_TYPE>V</SOURCE_TYPE>
    </DDLS>
   </asx:values>

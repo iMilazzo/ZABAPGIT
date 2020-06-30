@@ -1,1 +1,0 @@
-sap.ui.define(["sap/suite/ui/generic/template/lib/AppComponent"],function(e){return e.extend("Partidas4.partidas4.Component",{metadata:{manifest:"json"}})});                                                                                                  

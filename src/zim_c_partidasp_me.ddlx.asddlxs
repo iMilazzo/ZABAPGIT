@@ -1,0 +1,73 @@
+@Metadata.layer: #CUSTOMER
+@UI:{
+
+    headerInfo: {
+        title: {
+            type: #STANDARD,
+            label: 'Partida:',
+            value: 'id_partida'
+        },
+        description: {
+            value: 'id_partida',
+            label: 'Partida:',
+            type: #STANDARD
+        },
+        typeName: 'Partida',
+        typeNamePlural: 'Partidas'
+    }
+}
+annotate view ZIM_C_PARTIDASP_CBOPF with
+{
+  @UI.facet: [
+     { 
+        id: 'id',
+        label: 'Partida',
+        purpose: #HEADER,
+        type: #HEADERINFO_REFERENCE,
+        position: 10
+     },{ 
+        label: 'Adversários',
+        id: 'info',
+        purpose: #STANDARD,
+        type: #COLLECTION,
+        position: 10
+     },{
+        id:'grp3',
+        type: #IDENTIFICATION_REFERENCE,
+        purpose: #STANDARD,
+        position: 10
+     }
+  ]
+  @UI: {
+      fieldGroup: [ { qualifier: 'id', position: 10, label: 'Partida', importance: #HIGH } ],
+      identification:[ { position: 10, label: 'Partida', importance: #HIGH } ]
+  }
+  id_partida;
+  
+  @UI: {
+      lineItem:[ { position: 10, label: 'Adversário', importance: #HIGH } ],
+      identification:[ { position: 20, label: 'Adversário', importance: #HIGH } ]
+  }
+  id_item;
+  
+  @UI: {
+      lineItem:[ { position: 20, label: 'Clube', importance: #HIGH },
+                 { label: 'Estádio', type: #FOR_INTENT_BASED_NAVIGATION, semanticObjectAction: 'display' }],
+      identification:[ { position: 30, label: 'Clube', importance: #HIGH },
+                       { label: 'Estádio', type: #FOR_INTENT_BASED_NAVIGATION, semanticObjectAction: 'display' }]
+  }
+  id_clube;
+
+  @UI: {
+      lineItem:[ { position: 30, label: 'Placar', importance: #HIGH } ],
+      identification:[ { position: 40, label: 'Placar', importance: #HIGH } ]
+  }
+  placar;
+
+  @UI: {
+      lineItem:[ { position: 40, label: 'Pontos', importance: #HIGH } ],
+      identification:[ { position: 50, label: 'Pontos', importance: #HIGH } ]
+  }
+  pontos;
+
+}

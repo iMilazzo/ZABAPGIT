@@ -1,0 +1,143 @@
+@Metadata.layer: #CORE
+@UI:{
+
+    headerInfo: {
+        title: {
+            type: #STANDARD,
+            value: 'nome_estadio'
+        },
+        description: {
+            value: 'cidade',
+            type: #STANDARD
+        },
+        typeName: 'Estádio',
+        typeNamePlural: 'Estádios'
+    },
+        badge:{
+        headLine: {
+        label: 'headLinelabel',
+        value: 'nome_estadio'
+        },
+        mainInfo: {
+        label: 'mainInfo',
+        value: 'nome_estadio',
+        type: #STANDARD
+        },
+        secondaryInfo:{
+        label: 'secondaryInfo',
+        value: 'capacidade',
+        type: #STANDARD
+        },
+        title:{
+        label: 'title',
+        value: 'cidade',
+        type: #STANDARD
+        }
+    } 
+}
+annotate view ZIM_C_ESTADIOS_CNEW with
+{
+    @UI.facet: [
+         { 
+            label: 'Informações Gerais',
+            id: 'GeneralInformation',
+            purpose: #STANDARD,
+            type: #COLLECTION,
+            position: 10
+         },
+         {
+            label: 'Endereço',
+            id: 'mapInfo',
+            purpose: #STANDARD,
+            type: #COLLECTION,
+            position: 20
+         },
+         {
+           id:'historicoChild',
+           purpose: #STANDARD,
+           parentId: 'GeneralInformation',
+           type: #IDENTIFICATION_REFERENCE,
+           position: 10,
+           targetQualifier: 'hist'
+         },
+         {
+           label: 'Group 1',
+           id:'grp1',
+           purpose: #STANDARD,
+           parentId: 'GeneralInformation',
+           type: #FIELDGROUP_REFERENCE,
+           position: 10,
+           targetQualifier: 'adminGroup'
+         },
+        {
+           label: 'Relevant Address',
+           id:'grp3',
+           purpose: #STANDARD,
+           parentId: 'mapInfo',
+           //type: #BADGE_REFERENCE,
+           position: 10,
+           isMap: true,
+           targetQualifier: 'geoGroup'
+         }
+         
+    ]
+  @UI: {
+      lineItem: [ { position: 10, label: 'ID do Estádio', importance: #HIGH } ],
+      identification:[ { position: 10, label: 'ID do Estádio'  } ]
+  }
+  id_estadio;
+
+  @UI: {
+      lineItem: [ { position: 20, label: 'Nome do Estádio', importance: #HIGH } ],
+      identification:[ { position: 20, label: 'Nome do Estádio' } ]
+  }
+  nome_estadio;
+
+  @UI: {
+      lineItem: [ { position: 30, label: 'Capacidade', importance: #HIGH } ],
+      identification:[ { position: 30, label: 'Capacidade' } ]
+  }
+  capacidade;
+
+  @UI: {
+      lineItem: [ { position: 40, label: 'Cidade', importance: #HIGH } ],
+      identification:[ { position: 40, label: 'Cidade' } ]
+  }
+  cidade;
+
+  @UI: {
+      lineItem: [ { position: 50, label: 'UF', importance: #HIGH } ],
+      identification:[ { position: 50, label: 'UF' } ]
+  }
+  uf;
+
+  @UI.hidden: true
+  geocode;
+  
+  @UI.hidden: true
+  latitude;
+  
+  @UI.hidden: true
+  longitude;
+      
+  @UI: {
+      fieldGroup: [{ qualifier: 'adminGroup', position: 10, importance: #LOW }]
+  }
+  created_at;
+
+  @UI: {
+      fieldGroup: [{ qualifier: 'adminGroup', position: 20, importance: #LOW }]
+  }
+  created_by;
+
+  @UI: {
+      fieldGroup: [{ qualifier: 'adminGroup', position: 30, importance: #LOW }]
+  }
+  changed_at;
+
+  @UI: {
+      fieldGroup: [{ qualifier: 'adminGroup', position: 40, importance: #LOW }]
+  }
+  changed_by;
+
+}

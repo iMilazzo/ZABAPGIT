@@ -1,0 +1,103 @@
+@Metadata.layer: #CUSTOMER
+@UI:{
+
+    headerInfo: {
+        title: {
+            type: #STANDARD,
+            label: 'Relação das Partidas',
+            value: 'id_partida'
+        },
+        description: {
+            value: 'id_partida',
+            label: 'Partidas',
+            type: #STANDARD
+        },
+        typeName: 'Partida',
+        typeNamePlural: 'Partidas'
+    }
+}
+annotate view ZIM_C_PARTIDASK_CBOPF with
+{
+  @UI.facet: [
+     { 
+        id: 'header',
+        purpose: #HEADER,
+        type: #COLLECTION,
+        targetQualifier: 'hdrInfo'
+     },
+     { 
+        label: 'Detalhes',
+        id: 'info',
+        purpose: #STANDARD,
+        type: #COLLECTION,
+        position: 10
+     },
+     {
+        id:'grp1',
+        type: #IDENTIFICATION_REFERENCE,
+        purpose: #STANDARD,
+        parentId: 'info',        
+        position: 10
+     },
+     {
+        id:'grp2',
+        type: #FIELDGROUP_REFERENCE,
+        purpose: #STANDARD,
+        parentId: 'info',        
+        position: 20
+     },
+     { 
+       label: 'Adversários em Confronto',
+       id:'grp3',
+       type: #LINEITEM_REFERENCE,
+       purpose: #STANDARD,
+       position: 30,
+       targetElement: '_Items'
+     }     
+  ]
+  @UI: {
+      lineItem:[ { position: 10, label: 'Número', importance: #HIGH } ],
+      identification:[ { position: 10, label: 'Número', importance: #HIGH } ]
+  }  
+  id_partida;
+
+  @UI: {
+      lineItem:[ { position: 20, label: 'Data da Partida', importance: #HIGH } ],
+      identification:[ { position: 20, label: 'Data da Partida', importance: #HIGH } ]
+  }  
+  data_partida;
+
+  @UI: {
+      lineItem:[ { position: 30, label: 'Rodada', importance: #HIGH } ],
+      identification:[ { position: 30, label: 'Rodada', importance: #HIGH } ]
+  }  
+  id_rodada;
+
+  @UI: {
+      lineItem:[ { position: 40, label: 'Estádio', importance: #HIGH },
+                 { label: 'Estádio', type: #FOR_INTENT_BASED_NAVIGATION, semanticObjectAction: 'display' }],
+      identification:[ { position: 40, label: 'Estádio', importance: #HIGH },
+                       { value: 'id_estadio', label: 'Estádio', type: #FOR_INTENT_BASED_NAVIGATION, semanticObjectAction: 'display' }]
+  }
+  id_estadio;
+
+  @UI: {
+      lineItem:[ { position: 50, label: 'Público', importance: #HIGH } ],
+      identification:[ { position: 50, label: 'Público', importance: #HIGH } ]
+  }
+  publico;
+
+  @UI: {
+      lineItem:[ { position: 60, label: 'Renda', importance: #HIGH } ],
+      identification:[ { position: 60, label: 'Renda', importance: #HIGH } ]
+  }
+  renda;
+
+  @UI: {
+      lineItem:[ { position: 70, label: 'Moeda', importance: #HIGH } ],
+      identification:[ { position: 70, label: 'Moeda', importance: #HIGH } ]
+  }
+  
+  moeda;
+
+}

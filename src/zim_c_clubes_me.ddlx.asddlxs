@@ -1,0 +1,208 @@
+@Metadata.layer: #CORE
+@UI:{
+
+    headerInfo: {
+        title: {
+            type: #STANDARD,
+            value: 'nome_time'
+        },
+        description: {
+            value: 'nome_completo',
+            type: #STANDARD
+        },
+        typeName: 'Clube',
+        typeNamePlural: 'Clubes',
+//        title.url: 'logo'
+        imageUrl: 'LogoURL'
+        //typeImageUrl: 'LogoURL'
+    }
+
+}
+
+annotate view ZIM_C_CLUBES_CBOPF
+    with 
+{
+
+    @UI.facet: [
+         { 
+            id: 'header',
+            purpose: #HEADER,
+            type: #COLLECTION,
+            targetQualifier: 'hdr'
+         },
+         { 
+            label: 'Wiki',
+            id: 'historico',
+            purpose: #STANDARD,
+            type: #COLLECTION,
+            position: 10
+         },
+         { 
+            label: 'Informações Gerais',
+            id: 'GeneralInformation',
+            purpose: #STANDARD,
+            type: #COLLECTION,
+            position: 20
+         },
+         { 
+           id:'hdr',
+           type: #FIELDGROUP_REFERENCE,
+           purpose: #STANDARD,
+           position: 10,
+           parentId: 'header',
+           targetQualifier: 'hdrInfo'
+         },
+         { 
+           label: 'Elenco Atual',
+           id:'grp4',
+           type: #LINEITEM_REFERENCE,
+           purpose: #STANDARD,
+           position: 30,
+           targetElement: '_Elenco'
+         },
+         {
+           id:'historicoChild',
+           purpose: #STANDARD,
+           parentId: 'historico',
+           type: #IDENTIFICATION_REFERENCE,
+           position: 10,
+           targetQualifier: 'hist'
+         },
+         {
+           label: 'Group 1',
+           id:'grp1',
+           purpose: #STANDARD,
+           parentId: 'GeneralInformation',
+           type: #FIELDGROUP_REFERENCE,
+           position: 10,
+           targetQualifier: 'one'
+         },
+         {
+           label: 'Group 2',
+           id:'grp2',
+           purpose: #STANDARD,
+           parentId: 'GeneralInformation',
+           type: #FIELDGROUP_REFERENCE,
+           position: 20,
+           targetQualifier: 'two'
+         },
+         {
+           label: 'Group 3',
+           id:'grp3',
+           purpose: #STANDARD,
+           parentId: 'GeneralInformation',
+           type: #FIELDGROUP_REFERENCE,
+           position: 30,
+           targetQualifier: 'three'         
+         },
+         {
+           label: 'Group 4',
+           id:'grp4',
+           purpose: #STANDARD,
+           parentId: 'GeneralInformation',
+           type: #FIELDGROUP_REFERENCE,
+           position: 40,
+           targetQualifier: 'four'         
+         },{ 
+           purpose: #QUICK_VIEW,
+           type: #COLLECTION,
+           id: 'quick'
+         },{ 
+           label: 'Quick 1',
+           id:'qck1',
+           purpose: #QUICK_VIEW,
+           parentId: 'quick',
+           type: #FIELDGROUP_REFERENCE,
+           position: 10,
+           targetQualifier: 'quick1'
+           }
+    ]
+    
+    @UI: {
+        multiLineText: true,
+        fieldGroup: [{ qualifier: 'hdrInfo', position: 30, importance: #LOW }]
+//        identification:[ { position: 10, label: '', importance: #LOW } ]
+    }
+    descricao;
+    
+    @UI: {
+        fieldGroup: [{ qualifier: 'hdrInfo', position: 10, importance: #HIGH },
+                     { qualifier: 'one', position: 10, importance: #HIGH }],
+        lineItem: [ { position: 20, label: 'ID do Clube', importance: #HIGH } ]
+//        identification:[ { valueQualifier: 'one', position: 10, label: 'ID do Clube' } ]
+    }
+    id_clube;
+
+    @UI: {
+        fieldGroup: [{ qualifier: 'one', position: 10, importance: #HIGH }],
+        lineItem: [ { position: 20, label: 'Nome do Time', importance: #HIGH } ],
+        selectionField: [ { position: 10 } ]
+    }
+    nome_time;
+
+
+    @UI: {
+        fieldGroup: [{ qualifier: 'one', position: 20, label: 'Nome Razão', importance: #HIGH }]
+//          identification:[ { position: 20, label: 'Nome Razão', importance: #MEDIUM } ]
+    }
+    nome_completo;
+
+    @UI: {
+        textArrangement: #TEXT_FIRST,
+        fieldGroup: [{ position: 20, label: 'Estádio', importance: #HIGH, qualifier: 'two' },
+                     { label: 'Estádio', type: #FOR_INTENT_BASED_NAVIGATION, semanticObjectAction: 'display' }],
+//          identification:[ { position: 30, label: 'Estádio' }, importance: #MEDIUM ],
+        lineItem:  [{ position: 30, label: 'Estádio', importance: #HIGH },
+                    { label: 'Estádio', type: #FOR_INTENT_BASED_NAVIGATION, semanticObjectAction: 'display' }]
+    }
+    id_estadio;
+
+    @UI: {
+        fieldGroup: [{ qualifier: 'two', position: 30, label: 'Fundado em', importance: #HIGH }],
+//          identification:[ { position: 60, label: 'Fundado em' }, importance: #MEDIUM ],
+        lineItem:  [{ position: 40 }]
+    }
+    fundacao;
+
+    @UI: {
+        fieldGroup: [{ qualifier: 'two', position: 40, label: 'Nome do Técnico', importance: #HIGH }]
+//          identification:[ { position: 70, label: 'Nome do Técnico' }, importance: #MEDIUM ]
+    }
+    nome_tecnico;
+
+
+    @UI: {
+        fieldGroup: [{ qualifier: 'three', position: 10, importance: #LOW  }]
+//        identification:[ { position: 10, label: 'Criado em', importance: #LOW } ]
+    }
+    created_at;
+
+    @UI: {
+        fieldGroup: [{ qualifier: 'three', position: 20, importance: #LOW }]
+//        identification:[ { position: 20, label: 'Criado por', importance: #LOW } ]
+    }
+    created_by;
+
+    @UI: {
+        fieldGroup: [{ qualifier: 'three', position: 30, importance: #LOW }]
+//        identification:[ { position: 30, label: 'Modificado em' }, importance: #LOW ]
+    }
+    changed_at;
+      
+    @UI: {
+        fieldGroup: [{ qualifier: 'three', position: 40, importance: #LOW }]
+//        identification:[ { position: 40, label: 'Modificado por', importance: #LOW } ]
+    }
+    changed_by;
+    
+    @UI: {
+        fieldGroup: [{ qualifier: 'quick1', position: 10 }]
+    }
+    nome_estadio;
+
+    @UI: {
+        fieldGroup: [{ qualifier: 'quick1', position: 20}]
+    }
+    capacidade;
+    
+}
