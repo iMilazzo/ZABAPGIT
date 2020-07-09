@@ -1,0 +1,256 @@
+@Metadata.layer: #CORE
+@UI: {
+//================================================
+    selectionPresentationVariant: [{
+        text: 'selectionPresentationVariant Default',
+        qualifier: 'Default',
+        presentationVariantQualifier: 'Default',
+        selectionVariantQualifier: 'Default'
+    }],
+    
+//================================================
+    presentationVariant: [{
+
+        qualifier: 'FilterByIdEstadio',
+        text: 'Filter: Renda por IdEstadio',
+//        maxItems: 5 , 
+        sortOrder: [{
+            by: 'renda',
+            direction: #DESC 
+        }],
+        visualizations: [{
+            type: #AS_CHART,
+            qualifier: 'ChartByIdEstadio'
+            }]
+        },{
+
+        qualifier: 'FilterByData',
+        text: 'Filter: Renda por Data',
+//        maxItems: 5 , 
+        sortOrder: [{
+            by: 'data_partida',
+            direction: #ASC 
+        }],
+        visualizations: [{
+            type: #AS_CHART,
+            qualifier: 'ChartByData'
+            }]
+        },{
+
+        qualifier: 'FilterByEstadio',
+        text: 'Filter: Renda por Estádio',
+//        maxItems: 5 , 
+        sortOrder: [{
+            by: 'renda',
+            direction: #DESC 
+        }],
+        visualizations: [{
+            type: #AS_CHART,
+            qualifier: 'ChartByEstadio'
+            }]
+        },{
+
+        qualifier: 'FilterByRodada',
+        text: 'Filter: Renda por Rodada',
+//        maxItems: 3,
+        sortOrder: [{
+            by: 'id_rodada',
+            direction: #ASC 
+        }],
+        visualizations: [{
+            type: #AS_CHART,
+            qualifier: 'ChartByRodada'
+            }]
+        },{
+
+        qualifier: 'Default',
+        sortOrder: [{
+            by: 'id_partida',
+            direction: #ASC 
+        }],
+        visualizations: [{
+            type: #AS_CHART,
+            qualifier: 'ChartRenda'
+        }]
+    }],
+    
+//================================================
+    selectionVariant: [{
+        qualifier: 'Default',
+        text: 'Default'
+    }],
+    
+//================================================
+    chart: [{  
+
+        qualifier: 'ChartByIdEstadio',
+        title: 'Gráfico de Renda por IdEstadio',
+        description: 'description of ChartByIdEstadio',
+        chartType: #VERTICAL_BULLET,
+        dimensions: [ 'id_estadio' ], 
+        measures: [ 'renda' ],
+        dimensionAttributes: [{
+            dimension: 'id_estadio',
+            role: #CATEGORY
+        }],
+        measureAttributes: [{
+            measure: 'renda',
+            role: #AXIS_1
+        }]
+        
+    },{
+
+        qualifier: 'ChartByData',
+        title: 'Gráfico de Renda por Data',
+        description: 'description of ChartByData',
+        chartType: #LINE,
+        dimensions: [ 'data_partida' ], 
+        measures: [ 'renda' ],
+        dimensionAttributes: [{
+            dimension: 'data_partida',
+            role: #CATEGORY
+        }],
+        measureAttributes: [{
+            measure: 'renda',
+            role: #AXIS_1
+        }]
+        
+    },{
+
+        qualifier: 'ChartByEstadio',
+        title: 'Gráfico de Renda por Estádio',
+        description: 'description of ChartByEstadio',
+        chartType: #VERTICAL_BULLET,
+        dimensions: [ 'nome_estadio' ], 
+        measures: [ 'renda' ],
+        dimensionAttributes: [{
+            dimension: 'nome_estadio',
+            role: #CATEGORY
+        }],
+        measureAttributes: [{
+            measure: 'renda',
+            role: #AXIS_1
+        }]
+        
+    },{
+
+        qualifier: 'ChartByRodada',
+        title: 'Gráfico de Renda por Rodada',
+        description: 'description of ChartByRodada',
+        chartType: #DONUT,
+        dimensions: [ 'id_rodada' ], 
+        measures: [ 'renda' ],
+        dimensionAttributes: [{
+            dimension: 'id_rodada',
+            role: #CATEGORY
+        }],
+        measureAttributes: [{
+            measure: 'renda',
+            role: #AXIS_1
+        }]
+        
+    },{
+
+        qualifier: 'ChartRenda',
+        title: 'Gráfico da Renda e Público',
+        description: 'description of ChartRenda',
+        chartType: #VERTICAL_BULLET,
+        dimensions:  [ 'nome_estadio' ], 
+        measures:  [ 'renda', 'publico' ],
+        dimensionAttributes: [{
+            dimension: 'nome_estadio',
+            role: #CATEGORY
+        },{
+            dimension: 'id_partida',
+            role: #CATEGORY
+        }],
+        measureAttributes: [{
+            measure: 'renda',
+            role: #AXIS_1
+        },{
+            measure: 'publico',
+            role: #AXIS_2
+        }]
+    }]
+}
+
+annotate view ZIM_C_PARTIDASK_CUBE with
+
+{
+//==========================================
+@UI: {
+    selectionField: [{ position: 10 }],
+    lineItem: [{ position: 10 }]
+}
+id_partida;
+
+//==========================================
+@UI: {
+    selectionField: [{ position: 20 }],
+    lineItem: [{ position: 20 }]
+}
+data_partida;
+
+//==========================================
+@UI: {
+    selectionField: [{ position: 30 }],
+    lineItem: [{ position: 30 }]
+}
+id_rodada;
+
+//==========================================
+@UI: {
+    selectionField: [{ position: 40 }],
+    lineItem: [{ position: 40 }]
+}
+nome_estadio;
+
+//==========================================
+@UI: {
+    selectionField: [{ position: 50 }],
+    lineItem: [{ position: 50 }]
+}
+id_estadio;
+
+//==========================================
+@UI:{
+    dataPoint: {
+        description: 'dataPoint_publico',
+        title: 'dp_publico'
+    },
+    lineItem: [{ position: 60  }]
+}
+publico;
+
+//==========================================
+@UI: {
+    dataPoint: {
+        description: 'dataPoint_PublicoThreshold',
+        title: 'Público/Estádio',
+        minimumValue: 0,
+        maximumValue: 100,
+        targetValue: 100,
+        criticality: 'PublicoCritical',
+        visualization: #PROGRESS,
+        criticalityCalculation:{
+            improvementDirection: #MAXIMIZE,
+            acceptanceRangeLowValue: 66,
+            deviationRangeLowValue: 33,
+            toleranceRangeLowValue: 66
+        }
+    },
+    lineItem: [{ position: 70, type: #AS_DATAPOINT   }]
+}
+PublicoThreshold;
+
+//==========================================
+@UI:{ 
+    dataPoint: { 
+        description: 'dataPoint_publico',
+        title: 'dp_renda'
+    },
+    lineItem: [{ position: 80  }]
+}
+renda;
+
+}

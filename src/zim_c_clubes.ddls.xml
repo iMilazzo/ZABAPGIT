@@ -5,7 +5,7 @@
    <DDLS>
     <DDLNAME>ZIM_C_CLUBES</DDLNAME>
     <DDLANGUAGE>E</DDLANGUAGE>
-    <DDTEXT>Consumption view to CLUBES</DDTEXT>
+    <DDTEXT>Composite</DDTEXT>
     <SOURCE_TYPE>V</SOURCE_TYPE>
    </DDLS>
   </asx:values>

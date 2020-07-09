@@ -1,103 +1,146 @@
-@Metadata.layer: #CUSTOMER
+@Metadata.layer: #CORE
 @UI:{
 
     headerInfo: {
         title: {
             type: #STANDARD,
-            label: 'Relação das Partidas',
-            value: 'id_partida'
+            value: 'id_partida',
+            label: 'Partidas'
         },
         description: {
-            value: 'id_partida',
             label: 'Partidas',
+            value: 'id_partida',
             type: #STANDARD
         },
         typeName: 'Partida',
         typeNamePlural: 'Partidas'
     }
+
 }
-annotate view ZIM_C_PARTIDASK_CBOPF with
+annotate view ZIM_C_PARTIDASK with
 {
   @UI.facet: [
-     { 
-        id: 'header',
-        purpose: #HEADER,
-        type: #COLLECTION,
-        targetQualifier: 'hdrInfo'
-     },
-     { 
-        label: 'Detalhes',
-        id: 'info',
-        purpose: #STANDARD,
-        type: #COLLECTION,
-        position: 10
-     },
-     {
-        id:'grp1',
-        type: #IDENTIFICATION_REFERENCE,
-        purpose: #STANDARD,
-        parentId: 'info',        
-        position: 10
-     },
-     {
-        id:'grp2',
-        type: #FIELDGROUP_REFERENCE,
-        purpose: #STANDARD,
-        parentId: 'info',        
-        position: 20
-     },
-     { 
-       label: 'Adversários em Confronto',
-       id:'grp3',
-       type: #LINEITEM_REFERENCE,
-       purpose: #STANDARD,
-       position: 30,
-       targetElement: '_Items'
-     }     
+       {
+          id: 'header',
+          purpose: #HEADER,
+          type: #COLLECTION
+       },
+       {
+         label: 'Header',
+         purpose: #HEADER,
+         id: 'hdr1',
+         parentId: 'header',
+         type: #HEADERINFO_REFERENCE
+       },
+       {
+          id: 'GeneralInformation',
+          label: 'Informações Gerais',
+          type: #COLLECTION,
+          position: 10
+       },
+       {
+         id:'grp1',
+         label: 'Group 1',
+         parentId: 'GeneralInformation',
+         type: #IDENTIFICATION_REFERENCE,
+         position: 10,
+         targetQualifier: 'one'
+       },
+       {
+         id:'grp2',
+         label: 'Group 2',
+         parentId: 'GeneralInformation',
+         type: #FIELDGROUP_REFERENCE,
+         position: 20,
+         targetQualifier: 'two'
+       },
+       {
+         id:'item',
+         label: 'Confronto',
+         type: #LINEITEM_REFERENCE,
+         position: 30,
+         targetElement: '_Items'
+       }
   ]
+
   @UI: {
-      lineItem:[ { position: 10, label: 'Número', importance: #HIGH } ],
-      identification:[ { position: 10, label: 'Número', importance: #HIGH } ]
-  }  
+//         fieldGroup: [{ qualifier: 'hdrInfo', position: 30, importance: #LOW }],
+      identification:[ { position: 10, label: 'Partida', importance: #HIGH} ],
+      lineItem: [ { position: 10, label: 'Partida', importance: #HIGH } ]
+  }
   id_partida;
 
   @UI: {
-      lineItem:[ { position: 20, label: 'Data da Partida', importance: #HIGH } ],
-      identification:[ { position: 20, label: 'Data da Partida', importance: #HIGH } ]
-  }  
+//          fieldGroup: [{ qualifier: 'hdrInfo', position: 30, importance: #LOW }],
+      identification:[ { position: 20, label: 'Data', importance: #LOW } ],
+      lineItem: [ { position: 20, label: 'Data', importance: #HIGH } ]
+  }
   data_partida;
 
   @UI: {
-      lineItem:[ { position: 30, label: 'Rodada', importance: #HIGH } ],
-      identification:[ { position: 30, label: 'Rodada', importance: #HIGH } ]
-  }  
+//          fieldGroup: [{ qualifier: 'hdrInfo', position: 30, importance: #LOW }],
+      identification:[ { position: 30, label: 'Rodada', importance: #LOW } ],
+      lineItem: [ { position: 30, label: 'Rodada', importance: #HIGH } ]
+  }
   id_rodada;
 
   @UI: {
-      lineItem:[ { position: 40, label: 'Estádio', importance: #HIGH },
-                 { label: 'Estádio', type: #FOR_INTENT_BASED_NAVIGATION, semanticObjectAction: 'display' }],
-      identification:[ { position: 40, label: 'Estádio', importance: #HIGH },
-                       { value: 'id_estadio', label: 'Estádio', type: #FOR_INTENT_BASED_NAVIGATION, semanticObjectAction: 'display' }]
+      identification: [{ position: 40, label: 'Estádio', importance: #HIGH },
+                       { type: #FOR_INTENT_BASED_NAVIGATION, semanticObjectAction: 'display' }],
+      lineItem:  [{ position: 40, label: 'Estádio', importance: #HIGH },
+                  { type: #FOR_INTENT_BASED_NAVIGATION, semanticObjectAction: 'display' }]
   }
   id_estadio;
 
-  @UI: {
-      lineItem:[ { position: 50, label: 'Público', importance: #HIGH } ],
-      identification:[ { position: 50, label: 'Público', importance: #HIGH } ]
+  @UI: 
+      {
+       dataPoint: {
+          visualization: #PROGRESS, 
+          title: 'publico',
+          targetValueElement: 'capacidade',
+          criticality: 'PublicoCritical',
+          description: 'publico'
+      },
+      identification:[ { position: 50, label: 'Público', importance: #HIGH } ],
+      lineItem: [ { position: 50, label: 'Público', importance: #HIGH, type: #AS_DATAPOINT } ]
   }
   publico;
 
+  @UI: { 
+      dataPoint: {
+          minimumValue: 0,
+          maximumValue: 100,
+          targetValue: 100,
+          criticalityCalculation:{
+              improvementDirection: #MAXIMIZE,
+              acceptanceRangeLowValue: 66,
+              deviationRangeLowValue: 33,
+              toleranceRangeLowValue: 66
+          }
+      },
+      identification: [{ position: 80, label: 'Audiência', type: #AS_DATAPOINT }]
+  }
+  PublicoThreshold;
+
   @UI: {
-      lineItem:[ { position: 60, label: 'Renda', importance: #HIGH } ],
-      identification:[ { position: 60, label: 'Renda', importance: #HIGH } ]
+//         fieldGroup: [{ qualifier: 'hdrInfo', position: 30, importance: #LOW }],
+      identification:[ { position: 60, label: 'Renda', importance: #LOW } ],
+      lineItem: [ { position: 60, label: 'Renda', importance: #HIGH } ]
   }
   renda;
 
   @UI: {
-      lineItem:[ { position: 70, label: 'Moeda', importance: #HIGH } ],
-      identification:[ { position: 70, label: 'Moeda', importance: #HIGH } ]
+//         fieldGroup: [{ qualifier: 'hdrInfo', position: 30, importance: #LOW }],
+      identification:[ { position: 70, label: 'Moeda', importance: #LOW } ],
+      lineItem: [ { position: 70, label: 'Moeda', importance: #HIGH } ]
   }
-  
   moeda;
-
+  
+  @UI: { 
+//      hidden,
+      lineItem: [ { exclude: true, hidden: true, position: 999 } ],
+      identification: [{ position: 90, importance: #LOW }]
+  }    
+  capacidade;
+  
 }

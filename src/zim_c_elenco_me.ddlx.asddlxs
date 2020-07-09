@@ -1,0 +1,32 @@
+@Metadata.layer: #CUSTOMER
+annotate view ZIM_C_ELENCOS with
+{
+
+//  @UI: {
+//      lineItem: [ { position: 10, label: 'ID do Clube', importance: #HIGH } ],
+//      identification:[ { valueQualifier: 'one', position: 10, label: 'ID do Clube' } ]
+//  }
+//  id_clube;
+
+  @UI: {
+      lineItem: [ { position: 10, label: 'Jogador', importance: #HIGH },
+                  { label: 'Jogador', type: #FOR_INTENT_BASED_NAVIGATION, semanticObjectAction: 'display' }],
+      identification:[ { valueQualifier: 'one', position: 10, label: 'ID do Clube' } ]
+  }
+  id_jogador;
+
+  @UI: {
+    textArrangement: #TEXT_FIRST,
+    lineItem:  [{ position: 20, label: 'Jogador', importance: #HIGH }],
+    identification:[ { position: 20, label: 'Jogador' } ]
+ }
+  posicao;
+
+  @UI: {
+      lineItem: [ { position: 30, label: 'Camisa', importance: #HIGH } ],
+      identification:[ { valueQualifier: 'one', position: 30, label: 'ID do Clube' } ]
+  }
+  camisa;
+
+
+}

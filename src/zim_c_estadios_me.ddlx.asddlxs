@@ -1,4 +1,4 @@
-@Metadata.layer: #CORE
+@Metadata.layer: #CUSTOMER
 @UI:{
     headerInfo: {
         title: {
@@ -12,11 +12,11 @@
             label: 'Description',
             type: #STANDARD
         },
-        typeName: 'Estádios',
+        typeName: 'Estádio',
         typeNamePlural: 'Estádios'
     }   
 }
-annotate view ZIM_C_ESTADIOS_CTOT with
+annotate view ZIM_C_ESTADIOS with
 {
          
   @UI.facet: [
@@ -30,67 +30,66 @@ annotate view ZIM_C_ESTADIOS_CTOT with
        {
           label: 'Endereço',
           id: 'mapInfo',
-          purpose: #STANDARD,
           type: #COLLECTION,
           position: 20
        },
        {
-         label: 'Group 1',
          id:'Group1',
-         purpose: #STANDARD,
          parentId: 'GeneralInfo',
          type: #IDENTIFICATION_REFERENCE,
          position: 10,
          targetQualifier: 'oneGroup'
        },
        {
-         label: 'Group 2',
+         label: 'Admin',
          id:'Group2',
-         purpose: #STANDARD,
          parentId: 'GeneralInfo',
          type: #FIELDGROUP_REFERENCE,
          position: 20,
          targetQualifier: 'adminGroup'
        },
        {
-         label: 'Relevant Address',
-         id:'Group3',
-         purpose: #STANDARD,
-         parentId: 'mapInfo',
-         type: #ADDRESS_REFERENCE,
-         position: 10,
-         isMap: true,
-         targetQualifier: 'geoGroup'
+         label: 'Partidas',
+         id: 'partidas',
+         type: #LINEITEM_REFERENCE,
+         position: 30,
+         targetElement: '_PartidasHdr'
+       },
+       {
+         label: 'Clubes',
+         id: 'clubes',
+         type: #LINEITEM_REFERENCE,
+         position: 40,
+         targetElement: '_Clubes'
        }
   ]
        
   @UI: {
-      lineItem: [ { position: 10, label: 'ID do Estádio', importance: #HIGH } ],
+      lineItem: [ { position: 10, label: 'Estádio', importance: #HIGH } ],
       identification:[ { position: 10, label: 'ID do Estádio'  } ]
   }
   id_estadio;
 
   @UI: {
-      lineItem: [ { position: 20, label: 'Nome do Estádio', importance: #HIGH } ],
-//      fieldGroup: [{ qualifier: 'hdrInfo', position: 10, importance: #HIGH }],
+      lineItem: [ { position: 20, label: 'Nome', importance: #HIGH } ],
       identification:[ { position: 20, label: 'Nome do Estádio' } ]
   }
   nome_estadio;
 
   @UI: {
-      lineItem: [ { position: 30, label: 'Capacidade', importance: #HIGH } ],
+      lineItem: [ { position: 30, label: 'Capacidade', importance: #MEDIUM } ],
       identification:[ { position: 30, label: 'Capacidade' } ]
   }
   capacidade;
 
   @UI: {
-      lineItem: [ { position: 40, label: 'Cidade', importance: #HIGH } ],
+      lineItem: [ { position: 40, label: 'Cidade', importance: #MEDIUM } ],
       identification:[ { position: 40, label: 'Cidade' } ]
   }
   cidade;
 
   @UI: {
-      lineItem: [ { position: 50, label: 'UF', importance: #HIGH } ],
+      lineItem: [ { position: 50, label: 'UF', importance: #MEDIUM } ],
       identification:[ { position: 50, label: 'UF' } ]
   }
   uf;

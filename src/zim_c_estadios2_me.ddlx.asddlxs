@@ -1,0 +1,127 @@
+@Metadata.layer: #CORE
+@UI:{
+    headerInfo: {
+        title: {
+            targetElement: 'nome_estadio',
+            type: #STANDARD,
+            label: 'Title',
+            value: 'nome_estadio'
+        },
+        description: {
+            value: 'nome_estadio',
+            label: 'Description',
+            type: #STANDARD
+        },
+        typeName: 'Estádio',
+        typeNamePlural: 'Estádios'
+    }   
+}
+annotate view ZIM_C_ESTADIOS2 with
+{
+         
+  @UI.facet: [
+       {
+          label: 'Informações Gerais',
+          id: 'GeneralInfo',
+          purpose: #STANDARD,
+          type: #COLLECTION,
+          position: 10
+       },
+       {
+          label: 'Endereço',
+          id: 'mapInfo',
+          purpose: #STANDARD,
+          type: #COLLECTION,
+          position: 20
+       },
+       {
+         label: 'Group 1',
+         id:'Group1',
+         purpose: #STANDARD,
+         parentId: 'GeneralInfo',
+         type: #IDENTIFICATION_REFERENCE,
+         position: 10,
+         targetQualifier: 'oneGroup'
+       },
+       {
+         label: 'Group 2',
+         id:'Group2',
+         purpose: #STANDARD,
+         parentId: 'GeneralInfo',
+         type: #FIELDGROUP_REFERENCE,
+         position: 20,
+         targetQualifier: 'adminGroup'
+       },
+       {
+         label: 'Relevant Address',
+         id:'Group3',
+         purpose: #STANDARD,
+         parentId: 'mapInfo',
+         type: #ADDRESS_REFERENCE,
+         position: 10,
+         isMap: true,
+         targetQualifier: 'geoGroup'
+       }
+  ]
+       
+  @UI: {
+      lineItem: [ { position: 10, label: 'ID do Estádio', importance: #HIGH } ],
+      identification:[ { position: 10, label: 'ID do Estádio'  } ]
+  }
+  id_estadio;
+
+  @UI: {
+      lineItem: [ { position: 20, label: 'Nome do Estádio', importance: #HIGH } ],
+//      fieldGroup: [{ qualifier: 'hdrInfo', position: 10, importance: #HIGH }],
+      identification:[ { position: 20, label: 'Nome do Estádio' } ]
+  }
+  nome_estadio;
+
+  @UI: {
+      lineItem: [ { position: 30, label: 'Capacidade', importance: #HIGH } ],
+      identification:[ { position: 30, label: 'Capacidade' } ]
+  }
+  capacidade;
+
+  @UI: {
+      lineItem: [ { position: 40, label: 'Cidade', importance: #HIGH } ],
+      identification:[ { position: 40, label: 'Cidade' } ]
+  }
+  cidade;
+
+  @UI: {
+      lineItem: [ { position: 50, label: 'UF', importance: #HIGH } ],
+      identification:[ { position: 50, label: 'UF' } ]
+  }
+  uf;
+
+  @UI.hidden: true
+  geocode;
+  
+  @UI.hidden: true
+  latitude;
+  
+  @UI.hidden: true
+  longitude;
+      
+  @UI: {
+      fieldGroup: [{ qualifier: 'adminGroup', position: 10, importance: #LOW }]
+  }
+  created_at;
+
+  @UI: {
+      fieldGroup: [{ qualifier: 'adminGroup', position: 20, importance: #LOW }]
+  }
+  created_by;
+
+  @UI: {
+      fieldGroup: [{ qualifier: 'adminGroup', position: 30, importance: #LOW }]
+  }
+  changed_at;
+
+  @UI: {
+      fieldGroup: [{ qualifier: 'adminGroup', position: 40, importance: #LOW }]
+  }
+  changed_by;
+
+}

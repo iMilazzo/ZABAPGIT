@@ -1,0 +1,1 @@
+sap.ui.define(["sap/ui/generic/app/AppComponent"],function(n){return n.extend("FlightALP.FlightALP.Component",{metadata:{manifest:"json"}})});                                                                                                                 

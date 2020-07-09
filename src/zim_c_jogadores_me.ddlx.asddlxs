@@ -1,0 +1,93 @@
+@Metadata.layer: #CUSTOMER
+@UI:{
+    headerInfo: {
+        title: {
+            targetElement: 'nome_jogador',
+            type: #STANDARD,
+            label: 'Title',
+            value: 'nome_jogador'
+        },
+        description: {
+            value: 'nome_jogador',
+            label: 'Description',
+            type: #STANDARD
+        },
+        typeName: 'Jogador',
+        typeNamePlural: 'Jogadores'
+    }   
+}
+annotate view ZIM_C_JOGADORES with
+{
+         
+  @UI.facet: [
+       {
+          label: 'Informações Gerais',
+          id: 'GeneralInfo',
+          purpose: #STANDARD,
+          type: #COLLECTION,
+          position: 10
+       },
+       {
+         label: 'Group 1',
+         id:'Group1',
+         purpose: #STANDARD,
+         parentId: 'GeneralInfo',
+         type: #IDENTIFICATION_REFERENCE,
+         position: 10,
+         targetQualifier: 'oneGroup'
+       },
+       {
+         label: 'Group 2',
+         id:'Admin1',
+         purpose: #STANDARD,
+         parentId: 'GeneralInfo',
+         type: #FIELDGROUP_REFERENCE,
+         position: 10,
+         targetQualifier: 'adminGroup'
+       },
+       {
+         label: 'Partidas',
+         id:'items',
+         purpose: #STANDARD,
+         type: #LINEITEM_REFERENCE,
+         position: 20,
+         targetElement: '_Elenco'
+       }  ]
+       
+  @UI: {
+      lineItem: [ { position: 10, label: 'ID do Estádio', importance: #HIGH } ],
+      identification:[ { position: 10, label: 'ID do Estádio'  } ]
+  }
+  id_jogador;
+
+  @UI: {
+      lineItem: [ { position: 20, label: 'Nome do Estádio', importance: #HIGH } ],
+//      fieldGroup: [{ qualifier: 'hdrInfo', position: 10, importance: #HIGH }],
+      identification:[ { position: 20, label: 'Nome do Estádio' } ]
+  }
+  nome_jogador;
+
+     
+  @UI: {
+      fieldGroup: [{ qualifier: 'adminGroup', position: 10, importance: #LOW }]
+  }
+  created_at;
+
+  @UI: {
+      fieldGroup: [{ qualifier: 'adminGroup', position: 20, importance: #LOW }]
+  }
+  created_by;
+
+  @UI: {
+      fieldGroup: [{ qualifier: 'adminGroup', position: 30, importance: #LOW }]
+  }
+  changed_at;
+
+  @UI: {
+      fieldGroup: [{ qualifier: 'adminGroup', position: 40, importance: #LOW }]
+  }
+  changed_by;
+
+
+
+}

@@ -4,42 +4,41 @@
     headerInfo: {
         title: {
             type: #STANDARD,
-            label: 'Partida:',
+            label: 'Confronto',
             value: 'id_partida'
         },
         description: {
             value: 'id_partida',
-            label: 'Partida:',
+            label: 'Confronto',
             type: #STANDARD
         },
-        typeName: 'Partida',
-        typeNamePlural: 'Partidas'
+        typeName: 'Confronto',
+        typeNamePlural: 'Confrontos'
     }
 }
-annotate view ZIM_C_PARTIDASP_CBOPF with
+annotate view ZIM_C_PARTIDASP with
 {
   @UI.facet: [
      { 
         id: 'id',
-        label: 'Partida',
+        label: 'Confronto',
         purpose: #HEADER,
         type: #HEADERINFO_REFERENCE,
         position: 10
      },{ 
-        label: 'Adversários',
         id: 'info',
-        purpose: #STANDARD,
+        label: 'Adversários',
         type: #COLLECTION,
         position: 10
      },{
         id:'grp3',
-        type: #IDENTIFICATION_REFERENCE,
+        parentId: 'info',
         purpose: #STANDARD,
+        type: #IDENTIFICATION_REFERENCE,
         position: 10
      }
   ]
   @UI: {
-      fieldGroup: [ { qualifier: 'id', position: 10, label: 'Partida', importance: #HIGH } ],
       identification:[ { position: 10, label: 'Partida', importance: #HIGH } ]
   }
   id_partida;
@@ -52,9 +51,9 @@ annotate view ZIM_C_PARTIDASP_CBOPF with
   
   @UI: {
       lineItem:[ { position: 20, label: 'Clube', importance: #HIGH },
-                 { label: 'Estádio', type: #FOR_INTENT_BASED_NAVIGATION, semanticObjectAction: 'display' }],
+                 { type: #FOR_INTENT_BASED_NAVIGATION, semanticObjectAction: 'display' }],
       identification:[ { position: 30, label: 'Clube', importance: #HIGH },
-                       { label: 'Estádio', type: #FOR_INTENT_BASED_NAVIGATION, semanticObjectAction: 'display' }]
+                       {type: #FOR_INTENT_BASED_NAVIGATION, semanticObjectAction: 'display' }]
   }
   id_clube;
 

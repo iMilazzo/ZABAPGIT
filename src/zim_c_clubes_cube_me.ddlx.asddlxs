@@ -1,0 +1,115 @@
+@Metadata.layer: #CUSTOMER
+
+@UI: {
+    selectionPresentationVariant: [{
+//        qualifier: 'KPIGols',
+//        presentationVariantQualifier: 'KPIGols',
+//        selectionVariantQualifier: 'KPIGols'
+//    },{
+        qualifier: 'Default',
+        presentationVariantQualifier: 'Default',
+        selectionVariantQualifier: 'Default'
+    }],
+    presentationVariant: [{
+        qualifier: 'KPIGols',
+        text: 'GOL',
+        visualizations: [{
+            type: #AS_CHART,
+            qualifier: 'ChartGols'
+            },{
+            type: #AS_DATAPOINT,
+            qualifier: 'TotalGols'
+            }]
+        },{
+        qualifier: 'Default',
+        visualizations: [{
+            type: #AS_CHART,
+            qualifier: 'ChartDefault'
+        }]
+    }],
+    selectionVariant: [{
+//        qualifier: 'KPIGols',
+//        text: 'KPIGols'
+//    },{
+        qualifier: 'Default',
+        text: 'Default'
+    }],
+    chart: [{  
+        qualifier: 'ChartGols',
+        title: 'Gráfico Gols',
+        chartType: #BULLET,
+        dimensions:  [ 'nome_time' ], 
+        measures:  [ 'TotalGols' ],
+        dimensionAttributes: [{
+            dimension: 'nome_time',
+            role: #CATEGORY
+        }],
+        measureAttributes: [{
+            measure: 'TotalGols',
+            role: #AXIS_1
+        }]
+    },{
+        qualifier: 'ChartDefault',
+        title: 'Gráfico da Pontuação',
+        chartType: #VERTICAL_BULLET,
+        dimensions:  [ 'nome_time' ], 
+        measures:  [ 'TotalPontos' ],
+        dimensionAttributes: [{
+            dimension: 'nome_time',
+            role: #CATEGORY
+        }],
+        measureAttributes: [{
+            measure: 'TotalPontos',
+            role: #AXIS_1
+        }]
+    }]
+    
+}
+annotate view ZIM_C_CLUBES_CUBE
+    with 
+{
+@UI: {
+    selectionField: [{ position: 10 }],
+    lineItem: [{ position: 10  }]
+}
+id_clube;
+
+@UI: {
+    selectionField: [{ position: 20 }],
+    lineItem: [{ position: 20  }]
+}
+nome_time;
+@UI:{
+    kpi: [{
+        id: 'KPIGols',
+        qualifier: 'KPIGols',
+        selectionVariantQualifier: 'KPIGols',
+        detail: {
+            defaultPresentationVariantQualifier: 'KPIGols',
+            semanticObject: 'ZCLUBESOP',
+            semanticObjectAction: 'display'
+        },
+        shortDescription: 'Golsss',
+        dataPoint:{
+            valueFormat: { numberOfFractionalDigits: 0  },
+            description: 'Total de Gols',
+            title: 'GOL'
+//            visualization: #BULLET_CHART 
+        }
+    }],
+//    dataPoint: { 
+//        title: 'Gols', 
+//        description: 'Total de Gols',
+//        longDescription: 'aaaaaaaaaaaaaaaaaaaaa'  
+//    }, 
+    lineItem: [{ position: 30  }]
+}
+TotalGols;
+
+@UI:{
+    dataPoint: { title: 'Pontos' }, 
+    lineItem: [{ position: 50  }]
+}
+TotalPontos;
+    
+}

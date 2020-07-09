@@ -2,15 +2,27 @@
 @AbapCatalog.compiler.compareFilter: true
 @AbapCatalog.preserveKey: true
 @AccessControl.authorizationCheck: #NOT_REQUIRED
-@EndUserText.label: 'Value Help for JOGADOR'
+@EndUserText.label: 'Jogadores,private view,VDM interf view'
 
-@Search.searchable: true
+@VDM:{
+    viewType: #BASIC,
+    private: true
+}
+@OData: {
+    entitySet: { name: 'JogadoresVHSet' },
+    entityType: { name: 'JogadoresVH' }
+}
 define view ZIM_I_JOGADOR_VH
   as select from zim_jogadores
 {
       //zim_jogadores
   key id_jogador,
-      @Search.defaultSearchElement: true
-      @Search.fuzzinessThreshold: 0.8  
-      nome_jogador
+      @Semantics.text: true
+      @Semantics.name.fullName: true
+      nome_jogador,
+      created_at,
+      created_by,
+      changed_at,
+      changed_by
+      
 }

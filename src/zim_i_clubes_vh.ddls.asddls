@@ -5,14 +5,18 @@
 @EndUserText.label: 'Value Help for CLUBES'
 
 @Search.searchable: true
-
+@OData: {
+    entitySet: { name: 'ClubesVHSet' },
+    entityType: { name: 'ClubesVH' }
+}
 define view ZIM_I_CLUBES_VH
-  as select from zim_clubes
+  as select from ZIM_I_CLUBES
 {
-  //zim_clubes
+
   key id_clube,
-  @Search.defaultSearchElement: true
-  @Search.fuzzinessThreshold: 0.8
-  nome_time
+      @Semantics.text: true
+      @Search.defaultSearchElement: true
+      @Search.fuzzinessThreshold: 0.7
+      nome_time
 
 }

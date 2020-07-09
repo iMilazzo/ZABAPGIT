@@ -33,13 +33,13 @@ CLASS zcl_upload_xls DEFINITION PUBLIC FINAL.
       "! <p class="shorttext synchronized" lang="en">Upload binary file</p>
       upload_logo IMPORTING !is_file TYPE ty_s_file,
 
-      fill_zim_clubes IMPORTING !i_table TYPE STANDARD TABLE,
-      fill_zim_elencos IMPORTING !i_table TYPE STANDARD TABLE,
-      fill_zim_jogadores IMPORTING !i_table TYPE STANDARD TABLE,
-      fill_zim_estadios IMPORTING !i_table TYPE STANDARD TABLE,
+      fill_zim_clubes     IMPORTING !i_table TYPE STANDARD TABLE,
+      fill_zim_elencos    IMPORTING !i_table TYPE STANDARD TABLE,
+      fill_zim_jogadores  IMPORTING !i_table TYPE STANDARD TABLE,
+      fill_zim_estadios   IMPORTING !i_table TYPE STANDARD TABLE,
       fill_zim_partidas_k IMPORTING !i_table TYPE STANDARD TABLE,
       fill_zim_partidas_p IMPORTING !i_table TYPE STANDARD TABLE,
-      fill_zim_gols IMPORTING !i_table TYPE STANDARD TABLE,
+      fill_zim_gols       IMPORTING !i_table TYPE STANDARD TABLE,
 
       create_guid RETURNING VALUE(r_guid) TYPE guid,
 
@@ -47,7 +47,7 @@ CLASS zcl_upload_xls DEFINITION PUBLIC FINAL.
              RETURNING VALUE(r_id) TYPE id,
 
       convert_date IMPORTING !i_date_string TYPE string OPTIONAL
-                   RETURNING VALUE(r_date)  TYPE tzntstmps.
+                   RETURNING VALUE(r_date)  TYPE dats.
 
 
 ENDCLASS.
@@ -104,12 +104,13 @@ CLASS zcl_upload_xls IMPLEMENTATION.
       ENDIF.
 
       IF sy-subrc = 0.
-        CONVERT DATE l_converted_date TIME sy-uzeit INTO TIME STAMP r_date TIME ZONE 'BRAZIL'.
-*      r_date = l_converted_date .
+*        CONVERT DATE l_converted_date TIME sy-uzeit INTO TIME STAMP r_date TIME ZONE 'BRAZIL'.
+          r_date = l_converted_date .
       ENDIF.
 
     ELSE.
-      CONVERT DATE sy-datum TIME sy-uzeit INTO TIME STAMP r_date TIME ZONE 'BRAZIL'.
+*      CONVERT DATE sy-datum TIME sy-uzeit INTO TIME STAMP r_date TIME ZONE 'BRAZIL'.
+          r_date = sy-datum .
     ENDIF.
 
   ENDMETHOD.
