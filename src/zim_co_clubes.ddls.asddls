@@ -29,6 +29,7 @@ define view ZIM_CO_CLUBES
   association [1] to ZIM_C_CLUBES_LOGO as _Logo    on _Logo.id_clube = $projection.id_clube
   association [1] to ZIM_C_ESTADIOS    as _Estadio on _Estadio.id_estadio = $projection.id_estadio
   association [1..*] to ZIM_C_ELENCOS_JOG as _Elenco  on _Elenco.id_clube = $projection.id_clube
+  association [1]    to ZIM_I_CLUBES_KPI  as _KPI     on _KPI.id_clube = $projection.id_clube
 
 {
 
@@ -61,6 +62,13 @@ define view ZIM_CO_CLUBES
       @Semantics.user.lastChangedBy: true
       changed_by,
 
+      @EndUserText.label: 'Total do Gols'
+      @ObjectModel.readOnly
+      _KPI.gols as gols,
+
+      @EndUserText.label: 'Total do Pontos'
+      @ObjectModel.readOnly
+      _KPI.pontos as pontos,
 
       _Desc,
       _Logo,

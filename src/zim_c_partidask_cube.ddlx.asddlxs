@@ -6,10 +6,44 @@
         qualifier: 'Default',
         presentationVariantQualifier: 'Default',
         selectionVariantQualifier: 'Default'
+    },{
+        text: 'selectionPresentationVariant KPIRenda',
+        qualifier: 'KPIRenda',
+        presentationVariantQualifier: 'KPIRenda',
+        selectionVariantQualifier: 'KPIRenda'
+    },{
+        text: 'selectionPresentationVariant KPIPublico',
+        qualifier: 'KPIPublico',
+        presentationVariantQualifier: 'KPIPublico',
+        selectionVariantQualifier: 'KPIPublico'
     }],
     
 //================================================
     presentationVariant: [{
+
+        qualifier: 'KPIRenda',
+        text: 'RDA',
+        maxItems: 12, 
+        visualizations: [{
+            type: #AS_CHART,
+            qualifier: 'ChartOfRenda'
+            },{
+            type: #AS_DATAPOINT,
+            qualifier: 'renda'
+            }]
+        },{
+
+        qualifier: 'KPIPublico',
+        text: 'PUB',
+        maxItems: 12, 
+        visualizations: [{
+            type: #AS_CHART,
+            qualifier: 'ChartOfPublico'
+            },{
+            type: #AS_DATAPOINT,
+            qualifier: 'publico'
+            }]
+        },{
 
         qualifier: 'FilterByIdEstadio',
         text: 'Filter: Renda por IdEstadio',
@@ -78,10 +112,48 @@
     selectionVariant: [{
         qualifier: 'Default',
         text: 'Default'
+    },{
+        qualifier: 'KPIRenda',
+        text: 'text KPIRenda'
+    },{
+        qualifier: 'KPIPublico',
+        text: 'text KPIPublico'
     }],
     
 //================================================
     chart: [{  
+
+        qualifier: 'ChartOfRenda',
+        title: 'Renda por Estádio',
+        description: 'description of ChartOfRenda',
+        chartType: #COLUMN,
+        dimensions:  [ 'nome_estadio' ], 
+        measures:  [ 'renda' ],
+        dimensionAttributes: [{
+            dimension: 'nome_estadio',
+            role: #CATEGORY
+        }],
+        measureAttributes: [{
+            measure: 'renda',
+            role: #AXIS_1
+        }]
+    },{  
+
+        qualifier: 'ChartOfPublico',
+        title: 'Público por Estádio',
+        description: 'description of ChartOfPublico',
+        chartType: #COLUMN,
+        dimensions:  [ 'nome_estadio' ], 
+        measures:  [ 'publico' ],
+        dimensionAttributes: [{
+            dimension: 'nome_estadio',
+            role: #CATEGORY
+        }],
+        measureAttributes: [{
+            measure: 'publico',
+            role: #AXIS_1
+        }]
+    },{  
 
         qualifier: 'ChartByIdEstadio',
         title: 'Gráfico de Renda por IdEstadio',
@@ -214,10 +286,23 @@ id_estadio;
 
 //==========================================
 @UI:{
-    dataPoint: {
-        description: 'dataPoint_publico',
-        title: 'dp_publico'
-    },
+    kpi: [{
+        qualifier: 'KPIPublico',
+//        selectionVariantQualifier: 'KPIPublico',
+        detail: {
+            defaultPresentationVariantQualifier: 'KPIPublico',
+            semanticObject: 'ZESTADIOSOP',
+            semanticObjectAction: 'display'
+        },
+        shortDescription: 'Publico',
+        
+        dataPoint:{
+            longDescription: 'longDescription for KPIOfPublico',
+            valueFormat: { numberOfFractionalDigits: 0  },
+            description: 'Total Publico',
+            title: 'PUB'
+        }
+    }],
     lineItem: [{ position: 60  }]
 }
 publico;
@@ -245,10 +330,22 @@ PublicoThreshold;
 
 //==========================================
 @UI:{ 
-    dataPoint: { 
-        description: 'dataPoint_publico',
-        title: 'dp_renda'
-    },
+    kpi: [{
+        qualifier: 'KPIRenda',
+//        selectionVariantQualifier: 'KPIRenda',
+        detail: {
+            defaultPresentationVariantQualifier: 'KPIRenda',
+            semanticObject: 'ZESTADIOSOP',
+            semanticObjectAction: 'display'
+        },
+        shortDescription: 'Renda',
+        dataPoint:{
+            longDescription: 'longDescription for KPIOfRenda',
+            valueFormat: { numberOfFractionalDigits: 0  },
+            description: 'Total Arrecadado',
+            title: 'RND'
+        }
+    }],
     lineItem: [{ position: 80  }]
 }
 renda;

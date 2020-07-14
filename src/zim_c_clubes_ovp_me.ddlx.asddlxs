@@ -1,0 +1,114 @@
+@Metadata.layer: #CUSTOMER
+@UI:{
+
+    headerInfo: {
+        title: {
+            label: 'title',
+            type: #STANDARD,
+            value: 'nome_time'
+        },
+        description: {
+            label: 'description',
+            value: 'nome_time',
+            type: #STANDARD
+        }
+    }
+}
+@UI: {
+//================================================
+    selectionPresentationVariant: [{
+        text: 'selectionPresentationVariant Default',
+        qualifier: 'Default',
+        presentationVariantQualifier: 'Default',
+        selectionVariantQualifier: 'Default'
+    }],
+    
+//================================================
+    presentationVariant: [{
+
+        qualifier: 'Default',
+        sortOrder: [{
+            by: 'id_clube',
+            direction: #ASC 
+        }],
+        visualizations: [{
+            type: #AS_CHART,
+            qualifier: 'ChartPontos'
+        }]
+    }],
+    
+//================================================
+    selectionVariant: [{
+        qualifier: 'Default',
+        text: 'Default'
+    }],
+    
+//================================================
+    chart: [{  
+        qualifier: 'ChartPontos',
+        title: 'Gráfico da Pontuação',
+        description: 'description of ChartPontos',
+        chartType: #DONUT,
+        dimensions:  [ 'nome_time' ], 
+        measures:  [ 'pontos' ],
+        dimensionAttributes: [{
+            dimension: 'nome_time',
+            role: #CATEGORY
+        }],
+        measureAttributes: [{
+            measure: 'pontos',
+            role: #AXIS_1
+        }]
+    }]
+}
+annotate view ZIM_C_CLUBES_OVP with
+{
+  @UI: {
+      lineItem: [ { position: 10, type: #FOR_INTENT_BASED_NAVIGATION, semanticObjectAction: 'display' } ]
+  }
+  id_clube;
+  
+  @UI: {
+      lineItem: [ { position: 20 } ]
+  }
+  nome_time;
+  
+  @UI: {
+      dataPoint:{ 
+          minimumValue: 0,
+          maximumValue: 86,
+          targetValue: 86,
+          criticalityCalculation: {
+              improvementDirection: #MAXIMIZE,
+              acceptanceRangeLowValue: 86, 
+              deviationRangeLowValue: 0,
+              toleranceRangeLowValue: 86
+          },
+          visualization: #BULLET_CHART,
+          description: 'Goools',
+          title: 'GOL'
+      },
+      lineItem: [ { position: 40, type: #AS_DATAPOINT, label: 'Gols' } ]
+  }
+  gols;
+  
+  @UI: {
+      dataPoint:{ 
+          minimumValue: 0,
+          maximumValue: 90,
+          targetValue: 114,
+          criticalityCalculation: {
+              improvementDirection: #MAXIMIZE,
+              acceptanceRangeLowValue: 90, 
+              deviationRangeLowValue: 20,
+              toleranceRangeLowValue: 90
+          },
+          visualization: #PROGRESS,
+          description: 'Pontos',
+          title: 'PTO'
+      },
+      lineItem: [ { position: 50, type: #AS_CHART, label: 'Pontos', qualifier: 'ChartPontos' } ]
+  }
+  pontos;
+   
+}

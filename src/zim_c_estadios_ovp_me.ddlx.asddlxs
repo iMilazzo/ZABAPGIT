@@ -1,0 +1,114 @@
+@Metadata.layer: #CUSTOMER
+@UI:{
+
+    headerInfo: {
+        title: {
+            label: 'title',
+            type: #STANDARD,
+            value: 'nome_estadio'
+        },
+        description: {
+            label: 'description',
+            value: 'nome_estadio',
+            type: #STANDARD
+        }
+    }
+}
+@UI: {
+//================================================
+    selectionPresentationVariant: [{
+        text: 'selectionPresentationVariant Default',
+        qualifier: 'Default',
+        presentationVariantQualifier: 'Default',
+        selectionVariantQualifier: 'Default'
+    }],
+    
+//================================================
+    presentationVariant: [{
+
+        qualifier: 'Default',
+        sortOrder: [{
+            by: 'id_estadio',
+            direction: #ASC 
+        }],
+        visualizations: [{
+            type: #AS_CHART,
+            qualifier: 'ChartPontos'
+        }]
+    }],
+    
+//================================================
+    selectionVariant: [{
+        qualifier: 'Default',
+        text: 'Default'
+    }],
+    
+//================================================
+    chart: [{  
+        qualifier: 'ChartPontos',
+        title: 'Gráfico da Pontuação',
+        description: 'description of ChartPontos',
+        chartType: #DONUT,
+        dimensions:  [ 'nome_estadio' ], 
+        measures:  [ 'renda' ],
+        dimensionAttributes: [{
+            dimension: 'nome_estadio',
+            role: #CATEGORY
+        }],
+        measureAttributes: [{
+            measure: 'renda',
+            role: #AXIS_1
+        }]
+    }]
+}
+annotate view ZIM_C_ESTADIOS_OVP with
+{
+  @UI: {
+      lineItem: [ { position: 10, type: #FOR_INTENT_BASED_NAVIGATION, semanticObjectAction: 'display' } ]
+  }
+  id_estadio;
+  
+  @UI: {
+      lineItem: [ { position: 20 } ]
+  }
+  nome_estadio;
+  
+  @UI: {
+      dataPoint:{ 
+          minimumValue: 0,
+          maximumValue: 86,
+          targetValue: 86,
+          criticalityCalculation: {
+              improvementDirection: #MAXIMIZE,
+              acceptanceRangeLowValue: 86, 
+              deviationRangeLowValue: 0,
+              toleranceRangeLowValue: 86
+          },
+          visualization: #BULLET_CHART,
+          description: 'Goools',
+          title: 'PUB'
+      },
+      lineItem: [ { position: 40, type: #AS_DATAPOINT, label: 'Público' } ]
+  }
+  publico;
+  
+  @UI: {
+      dataPoint:{ 
+          minimumValue: 0,
+          maximumValue: 90,
+          targetValue: 114,
+          criticalityCalculation: {
+              improvementDirection: #MAXIMIZE,
+              acceptanceRangeLowValue: 90, 
+              deviationRangeLowValue: 20,
+              toleranceRangeLowValue: 90
+          },
+          visualization: #PROGRESS,
+          description: 'Pontos',
+          title: 'REN'
+      },
+      lineItem: [ { position: 50, type: #AS_DATAPOINT, label: 'Renda' } ]
+  }
+  renda;
+   
+}

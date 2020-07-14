@@ -629,7 +629,7 @@ CLASS zcl_upload_xls IMPLEMENTATION.
             EXCEPTIONS
               OTHERS  = 8.
 
-          content_str = 'data:image/png;base64,' && content_str.
+*          content_str = 'data:image/png;base64,' && content_str.
 
 *          DATA(lo_query_mgr) = cl_os_system=>get_query_manager( ).
 *          DATA(lv_filter) = |FILENAME = '{ wl_splice-name }'|.

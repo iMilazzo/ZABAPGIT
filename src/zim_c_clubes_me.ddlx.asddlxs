@@ -13,10 +13,58 @@
         typeName: 'Clube',
         typeNamePlural: 'Clubes',
         imageUrl: 'LogoURL'
-    }
-
+    },
+    chart: [{
+        chartType: #BULLET,
+        measures:  [ 'pontos' ],
+        measureAttributes: [{
+            measure: 'pontos',
+            asDataPoint: true,
+            role: #AXIS_1
+        }]
+    },{
+        chartType: #BULLET,
+        measures:  [ 'kpi' ],
+        measureAttributes: [{
+            measure: 'kpi',
+            asDataPoint: true,
+            role: #AXIS_1
+        }]
+    }] 
 }
-
+//@UI: {
+//    selectionPresentationVariant: [{
+//        qualifier: 'KPIClube',
+//        presentationVariantQualifier: 'KPIClube',
+//        selectionVariantQualifier: 'KPIClube'
+//    }],
+//    presentationVariant: [{
+//        qualifier: 'KPIClube',
+//        text: 'KPI',
+//        visualizations: [{
+//            type: #AS_CHART,
+//            qualifier: 'ChartKPI'
+//            },{
+//            type: #AS_DATAPOINT,
+//            qualifier: 'KPIClube'
+//            }]
+//    }],
+//    chart: [{  
+//        qualifier: 'ChartKPI',
+//        title: 'Gráfico do Aproveitamento',
+//        chartType: #BULLET,
+//        dimensions:  [ 'nome_time' ], 
+//        measures:  [ 'kpi' ],
+//        dimensionAttributes: [{
+//            dimension: 'nome_time',
+//            role: #CATEGORY
+//        }],
+//        measureAttributes: [{
+//            measure: 'kpi',
+//            role: #AXIS_1
+//        }]
+//    }]    
+//}
 annotate view ZIM_C_CLUBES
     with 
 {
@@ -43,6 +91,13 @@ annotate view ZIM_C_CLUBES
             position: 20
          },
          { 
+            label: 'Estatísticas',
+            id: 'StatisticsInformation',
+            purpose: #STANDARD,
+            type: #COLLECTION,
+            position: 30
+         },
+         { 
            id:'hdr',
            type: #FIELDGROUP_REFERENCE,
            purpose: #STANDARD,
@@ -52,23 +107,31 @@ annotate view ZIM_C_CLUBES
          },
          { 
            label: 'Elenco Atual',
-           id:'grp4',
+           id:'elenco',
            type: #LINEITEM_REFERENCE,
            purpose: #STANDARD,
            position: 30,
            targetElement: '_Elenco'
          },
+         { 
+           label: 'Partidas',
+           id:'items',
+           type: #LINEITEM_REFERENCE,
+           purpose: #STANDARD,
+           position: 40,
+           targetElement: '_Items'
+         },
          {
            id:'historicoChild',
            purpose: #STANDARD,
            parentId: 'historico',
-           type: #IDENTIFICATION_REFERENCE,
+           type: #FIELDGROUP_REFERENCE,
            position: 10,
            targetQualifier: 'hist'
          },
          {
-           label: 'Group 1',
-           id:'grp1',
+           label: 'Info',
+           id:'info',
            purpose: #STANDARD,
            parentId: 'GeneralInformation',
            type: #FIELDGROUP_REFERENCE,
@@ -76,8 +139,8 @@ annotate view ZIM_C_CLUBES
            targetQualifier: 'one'
          },
          {
-           label: 'Group 2',
-           id:'grp2',
+           label: 'Estádio',
+           id:'estd',
            purpose: #STANDARD,
            parentId: 'GeneralInformation',
            type: #FIELDGROUP_REFERENCE,
@@ -85,13 +148,22 @@ annotate view ZIM_C_CLUBES
            targetQualifier: 'two'
          },
          {
-           label: 'Group 3',
-           id:'grp3',
+           label: 'Admin',
+           id:'admin',
            purpose: #STANDARD,
            parentId: 'GeneralInformation',
            type: #FIELDGROUP_REFERENCE,
            position: 30,
            targetQualifier: 'three'         
+         },
+         {
+           label: 'Estatísticas',
+           id:'stat',
+           purpose: #STANDARD,
+           parentId: 'StatisticsInformation',
+           type: #DATAPOINT_REFERENCE,
+           position: 40,
+           targetQualifier: 'four'         
          }
     ]
     
@@ -167,15 +239,50 @@ annotate view ZIM_C_CLUBES
     }
     changed_by;
     
-   
-//    @UI: {
-//        fieldGroup: [{ qualifier: 'quick1', position: 10 }]
-//    }
-//    nome_estadio;
-//
-//    @UI: {
-//        fieldGroup: [{ qualifier: 'quick1', position: 20}]
-//    }
-//    capacidade;
+    @UI: {
+        fieldGroup: [{ qualifier: 'four', position: 50, label: 'Gols', importance: #LOW }]
+    }
+    gols;
+
+    @UI: {
+        dataPoint:{ 
+            minimumValue: 0,
+            maximumValue: 114,
+            targetValue: 90,
+            criticalityCalculation: {
+                improvementDirection: #MAXIMIZE,
+                deviationRangeLowValueElement: 'gols',
+                toleranceRangeLowValue: 90
+            },
+            visualization: #BULLET_CHART,
+            description: 'Pontos',
+            title: 'PTO'
+        },
+        fieldGroup: [//{ position: 40, type: #AS_CHART, qualifier: 'hdrInfo', label: 'Pontuação', importance: #LOW },
+                     { position: 60, type: #AS_CHART, qualifier: 'four', label: 'Pontuação', importance: #LOW }],
+        lineItem:   [{ position: 50, type: #AS_CHART, label: 'Pontuação' }]
+    }
+    pontos;
     
+    
+    @UI: {
+        dataPoint:{ 
+            minimumValue: 0,
+            maximumValue: 100,
+            targetValue: 100,
+            criticalityCalculation: {
+                improvementDirection: #MAXIMIZE,
+                deviationRangeLowValue: 20,
+                toleranceRangeLowValue: 90
+            },
+            visualization: #PROGRESS,
+            description: 'Aproveitamento do Clube',
+            title: 'APR'
+        },
+        fieldGroup: [//{ position: 50, type: #AS_CHART, qualifier: 'hdrInfo', importance: #LOW },
+                     { position: 70, type: #AS_DATAPOINT, qualifier: 'four', label: 'Aproveitamento', importance: #LOW }],
+        lineItem:   [{ position: 60, type: #AS_DATAPOINT, label: 'Aproveitamento' }]
+    }
+    kpi;
+
 }

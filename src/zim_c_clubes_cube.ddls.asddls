@@ -35,6 +35,14 @@ define view ZIM_C_CLUBES_CUBE
 //      @AnalyticsDetails.query.sortDirection: #ASC
       @EndUserText.label: 'Pontuação'
       @DefaultAggregation: #SUM
-      TotalPontos
-
+      TotalPontos,
+      
+      @EndUserText.label: 'Qtde de Jogos'
+      @DefaultAggregation: #SUM
+      Qtde,
+      
+      @DefaultAggregation: #FORMULA
+      @AnalyticsDetails.query.formula: '(TotalPontos / (Qtde * 3)) * 100'
+      @AnalyticsDetails.query.decimals: 2
+      1 as KPI
 }

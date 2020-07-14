@@ -31,6 +31,9 @@ define view ZIM_I_CLUBES_CUBE
       @Semantics.organization.name: true
       nome_time,
 
+      @DefaultAggregation: #SUM
+      1             as Qtde,
+
       @EndUserText.quickInfo: 'Quantidade de gols'
       @DefaultAggregation: #SUM
       _Items.placar as TotalGols,

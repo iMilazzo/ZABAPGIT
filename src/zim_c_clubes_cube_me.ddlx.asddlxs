@@ -21,6 +21,16 @@
             qualifier: 'TotalGols'
             }]
         },{
+        qualifier: 'KPIClube',
+        text: 'KPI',
+        visualizations: [{
+            type: #AS_CHART,
+            qualifier: 'ChartKPI'
+            },{
+            type: #AS_DATAPOINT,
+            qualifier: 'KPIClube'
+            }]
+        },{
         qualifier: 'Default',
         visualizations: [{
             type: #AS_CHART,
@@ -94,14 +104,8 @@ nome_time;
             valueFormat: { numberOfFractionalDigits: 0  },
             description: 'Total de Gols',
             title: 'GOL'
-//            visualization: #BULLET_CHART 
         }
     }],
-//    dataPoint: { 
-//        title: 'Gols', 
-//        description: 'Total de Gols',
-//        longDescription: 'aaaaaaaaaaaaaaaaaaaaa'  
-//    }, 
     lineItem: [{ position: 30  }]
 }
 TotalGols;
@@ -111,5 +115,25 @@ TotalGols;
     lineItem: [{ position: 50  }]
 }
 TotalPontos;
+
+@UI:{
+    kpi: [{
+        id: 'KPIClube',
+        qualifier: 'KPIClube',
+        selectionVariantQualifier: 'KPIClube',
+        detail: {
+            defaultPresentationVariantQualifier: 'KPIClube',
+            semanticObject: 'ZCLUBESOP',
+            semanticObjectAction: 'display'
+        },
+        dataPoint:{
+            valueFormat: { numberOfFractionalDigits: 0  },
+            description: 'Aproveitamento do Clube',
+            title: 'APR'
+        }
+    }],
+    lineItem: [{ position: 60  }]
+}
+KPI;
     
 }
